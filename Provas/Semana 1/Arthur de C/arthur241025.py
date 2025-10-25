@@ -61,4 +61,5 @@ while True:
     limparTela()
     desenharFrame(10,10,criarQuadradoCheio(0,0,10,10))
     
+
     # desenharFrame(TELA_X,TELA_Y)
