@@ -1,0 +1,11 @@
+[
+    ["VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "BRAN", "VERD"],
+    ["AZUL", "AZUL", "AZUL", "VERD", "VERD", "VERD", "VERD", "VERD", "AZUL", "AZUL", "PRET", "AZUL"],
+    ["AZ_C", "AZ_C", "AZUL", "AZUL", "AZUL", "AZUL", "AZUL", "AZUL", "AZUL", "AZ_C", "BRAN", "AZ_C"],
+    ["AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "PRET", "AZ_C"],
+    ["AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "BRAN", "AZ_C"],
+    ["AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "AZ_C", "PRET", "AZ_C"],
+    ["AZUL", "AZUL", "AZUL", "AZUL", "AZUL", "AZ_C", "AZ_C", "AZUL", "AZUL", "AZUL", "BRAN", "AZUL"],
+    ["VERD", "VERD", "VERD", "VERD", "AZUL", "AZUL", "AZUL", "AZUL", "VERD", "VERD", "PRET", "VERD"],
+    ["VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "VERD", "BRAN", "VERD"]
+]
