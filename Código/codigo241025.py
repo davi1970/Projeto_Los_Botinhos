@@ -38,7 +38,7 @@ TELA = [
 def desenharFrame(frame_atual):
     for linha in frame_atual:
         for cor_pixel in linha:
-            printFormatado(cor_pixel, cor_pixel)
+            printPixel(cor_pixel, cor_pixel)
         print()
 
 def rolarDados():
@@ -58,15 +58,19 @@ def limparTela():
     # global FRAME; FRAME = TELA.copy()
 
 
-def printFormatado(cor_texto, cor_fundo = 0, caractere=PIXEL):
+def printPixel(cor_texto, cor_fundo = 0, caractere=PIXEL):
     print(f"\033[38;5;{cor_texto};48;5;{cor_fundo}m{caractere}\033[0m", end="")
+
 
 
 
 # --EXECUÇÃO DO CÓDIGO-- #
 
+
 # - Pré-Loop - #
 limparTela()
+
+
 
 # - Loop - #
 while True:
