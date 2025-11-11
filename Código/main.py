@@ -1,6 +1,6 @@
 import os 
 import random as rd
-
+import curses
 
 
 # -- VARIÁVEIS DO JOGO -- #
@@ -61,6 +61,12 @@ def rolarDados():
         pass
     
 
+def ler_input(stdscr):
+    tecla = stdscr.getch()
+    if tecla == ord('2'):
+        rolarDados()
+        stdscr.refresh()
+        
 
 def limparTela():
     os.system("cls" if os.name == "nt" else "clear") # retorna "cls" se o os.name for igual a "nt" (Sistema Operacional do Windows) e caso não seja, retorna "clear" (Usado para Linux e Mac)
@@ -85,9 +91,11 @@ limparTela()
 def main():
     while True:
         _executarAnimacao()
-        input()
+        curses.wrapper(ler_input)
         rolarDados()
         limparTela()
 
 # --EXECUÇÃO DO CÓDIGO-- #
 main()
+
+
