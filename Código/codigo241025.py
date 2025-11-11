@@ -3,12 +3,7 @@ import random as rd
 
 
 
-
 # -- VARIÁVEIS DO JOGO -- #
-amazonino_posicao = 0
-tucuxi_posicao = 0
-
-# - CONSTANTES - #
 
 AZ_C = 51   
 AZUL = 19
@@ -31,6 +26,11 @@ TELA = [
     [VERD, VERD, VERD, VERD, AZUL, AZUL, AZUL, AZUL, VERD, VERD, PRET, VERD],
     [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, BRAN, VERD]
 ]
+
+amazonino_posicao = 0
+amazonino_cor = ROSA
+tucuxi_cor = 0
+tucuxi_posicao = CINZ
 
 # -- FUNÇÕES -- #
 
