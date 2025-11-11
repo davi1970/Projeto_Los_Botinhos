@@ -91,7 +91,7 @@ limparTela()
 def main():
     while True:
         _executarAnimacao()
-        curses.wrapper(ler_input)
+        curses.wrapper(ler_input) #aaaaaaaaaaaaaaaa
         rolarDados()
         limparTela()
 
