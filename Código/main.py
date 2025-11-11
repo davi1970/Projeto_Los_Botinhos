@@ -5,14 +5,14 @@ import random as rd
 
 # -- VARIÁVEIS DO JOGO -- #
 
-AZ_C = 51   
-AZUL = 19
+AZ_C = 37  
+AZUL = 31
 PRET = 0       
 BRAN = 15
-VERD = 46
-VD_E = 22
-ROSA = 200
-CINZ = 245
+VERD = 70
+VD_E = 64
+ROSA = 132
+CINZ = 102
 
 PIXEL = "██"
 MAPA = [
@@ -70,10 +70,10 @@ def limparTela():
 def printPixel(cor_texto, cor_fundo = 0, caractere=PIXEL):
     print(f"\033[38;5;{cor_texto};48;5;{cor_fundo}m{caractere}\033[0m", end="")
 
-
-
-
-# --EXECUÇÃO DO CÓDIGO-- #
+def _executarAnimacao():
+    frame_atual = resetarFrame()
+    frame_atual = atualizarFrame(frame_atual)
+    desenharFrame(frame_atual)
 
 
 # - Pré-Loop - #
@@ -82,10 +82,12 @@ limparTela()
 
 
 # - Loop - #
-while True:
-    frame_atual = resetarFrame()
-    frame_atual = atualizarFrame(frame_atual)
-    desenharFrame(frame_atual)
-    input()
-    rolarDados()
-    limparTela()
+def main():
+    while True:
+        _executarAnimacao()
+        input()
+        rolarDados()
+        limparTela()
+
+# --EXECUÇÃO DO CÓDIGO-- #
+main()
