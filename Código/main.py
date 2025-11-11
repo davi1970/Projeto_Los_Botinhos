@@ -59,13 +59,11 @@ def rolarDados():
         tucuxi_coords[1] += 1
     else:
         pass
-    
+        
 
 def ler_input(stdscr):
     tecla = stdscr.getch()
-    if tecla == ord('2'):
-        rolarDados()
-        stdscr.refresh()
+    return tecla
         
 
 def limparTela():
@@ -76,24 +74,31 @@ def limparTela():
 def printPixel(cor_texto, cor_fundo = 0, caractere=PIXEL):
     print(f"\033[38;5;{cor_texto};48;5;{cor_fundo}m{caractere}\033[0m", end="")
 
-def _executarAnimacao():
+
+
+# - Etapas - #
+def _etapaInicial():
+    input()
+    limparTela()
+    
+def _etapa():
+    rolarDados()
+
+def _etapaFinal():
     frame_atual = resetarFrame()
     frame_atual = atualizarFrame(frame_atual)
     desenharFrame(frame_atual)
-
 
 # - Pré-Loop - #
 limparTela()
 
 
-
 # - Loop - #
 def main():
     while True:
-        _executarAnimacao()
-        curses.wrapper(ler_input) #aaaaaaaaaaaaaaaa
-        rolarDados()
-        limparTela()
+        _etapaInicial()
+        _etapa()
+        _etapaFinal()
 
 # --EXECUÇÃO DO CÓDIGO-- #
 main()
