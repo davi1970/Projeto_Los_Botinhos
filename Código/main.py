@@ -32,19 +32,22 @@ PIXEL = "██"
 
 # Mapa-base do jogo (cores de cada célula)
 MAPA = [
-    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, BRAN, VERD],
-    [AZUL, AZUL, AZUL, VERD, VERD, VERD, VERD, VERD, AZUL, AZUL, PRET, AZUL],
-    [AZ_C, AZ_C, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZ_C, BRAN, AZ_C],
-    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, PRET, AZ_C],
-    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, BRAN, AZ_C],
-    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, PRET, AZ_C],
-    [AZUL, AZUL, AZUL, AZUL, AZUL, AZ_C, AZ_C, AZUL, AZUL, AZUL, BRAN, AZUL],
-    [VERD, VERD, VERD, VERD, AZUL, AZUL, AZUL, AZUL, VERD, VERD, PRET, VERD],
-    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, BRAN, VERD]
+    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, PRET, VERD],
+    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, BRAN, VERD],
+    [AZUL, AZUL, AZUL, AZUL, AZUL, VERD, VERD, VERD, VERD, VERD, VERD, VERD, AZUL, AZUL, AZUL, AZUL, PRET, AZUL],
+    [AZ_C, AZ_C, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZ_C, BRAN, AZ_C],
+    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, PRET, AZ_C],
+    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, BRAN, AZ_C],
+    [AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, AZ_C, PRET, AZ_C],
+    [AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, AZ_C, AZ_C, AZ_C, AZ_C, AZUL, AZUL, AZUL, AZUL, AZUL, BRAN, AZUL],
+    [VERD, VERD, VERD, VERD, VERD, VERD, AZUL, AZUL, AZUL, AZUL, AZUL, AZUL, VERD, VERD, VERD, VERD, PRET, VERD],
+    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, BRAN, VERD],
+    [VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, VERD, PRET, VERD]
 ]
 
 # Dados da corrida
 CHEGADA_X = MAPA[0][-2]
+PERGUNTAS = [["Pergunta","errado","errado","errado","certo "]]
 RESPOSTAS_SIMS = []
 RESPOSTAS_NAOS = [
     "NÃO", "não", "nao", "NAO", "Nao", "Não",
@@ -53,10 +56,11 @@ RESPOSTAS_NAOS = [
 ]
 continuar = True
 pergunta = ""
+
 # Estado inicial do jogo
 frame_atual = [linha.copy() for linha in MAPA]
-amazonino_coords = [3, 1]  # (y, x)
-tucuxi_coords = [5, 1]     # (y, x)
+amazonino_coords = [4, 1]  # (y, x)
+tucuxi_coords = [6, 1]     # (y, x)
 amazonino_cor = ROSA
 tucuxi_cor = CINZ
 
@@ -83,33 +87,37 @@ def _resetarFrame():
     return [linha.copy() for linha in MAPA]
 
 
-def _atualizarFrame(frame):
+def _desenharBotos(frame):
     """Atualiza o frame com a posição atual dos botos."""
-    frame[amazonino_coords[0]][amazonino_coords[1]] = amazonino_cor
     frame[tucuxi_coords[0]][tucuxi_coords[1]] = tucuxi_cor
+    frame[amazonino_coords[0]][amazonino_coords[1]] = amazonino_cor
     return frame
 
 
-def _rolarDados():
+def _nadoTucuxi():
     """Rola os dados e move o boto vencedor."""
-    amazonino_dado = rd.randint(1, 6)
-    tucuxi_dado = rd.randint(1, 6)
-    if amazonino_dado > tucuxi_dado:
-        amazonino_coords[1] += 1
-    elif amazonino_dado < tucuxi_dado:
-        tucuxi_coords[1] += 1
-    else:
-        pass  # empate → nenhum avança
+    tucuxi_coords[1] += rd.choice([0,1,1])
 
-def _resposta(resposta, resposta_certa = ""):
+def _fazerPergunta(perguntas):
+    pergunta_escolhida = rd.choice(perguntas)
+    print()
+    print(pergunta_escolhida[0])
+    for i in range(len(pergunta_escolhida)):
+        if i == 0: continue
+        print(f"{i}{pergunta_escolhida[i]}")
+
+
+def _analisarResposta(resposta, resposta_certa = ""):
     """Analisa a resposta e executa funções de acordo com ela"""
     if resposta == resposta_certa:
         amazonino_coords[1] += 1
         print(f"Resposta Correta!")
     elif resposta == "sair":
-        contiuar = False
+        pass # continuar = False
     else:
-        print(f"Resposta Errada!")
+        pass
+
+
 def _lerInput(stdscr):
     """Lê uma tecla pressionada usando curses."""
     tecla = stdscr.getch()
@@ -130,21 +138,23 @@ def _limparTela():
 # ===================== ETAPAS DO JOGO =========================
 # ==============================================================
 
-def etapaInicial():
+def etapaInicial(rodada):
     """Prepara o início de uma rodada."""
-    input()
+    if rodada != 1:
+        _continuar()
     _limparTela()
 
 
 def etapa():
-    """Executa a rolagem de dados e movimentação."""
-    _rolarDados()
+    """Executa a lógica principal e movimentação."""
+    _fazerPergunta(PERGUNTAS)
+    _nadoTucuxi()
 
 
 def etapaFinal():
     """Atualiza e desenha o estado final da rodada."""
     frame_atual = _resetarFrame()
-    frame_atual = _atualizarFrame(frame_atual)
+    frame_atual = _desenharBotos(frame_atual)
     _desenharFrame(frame_atual)
 
 
@@ -159,8 +169,10 @@ _continuar()
 
 # Loop principal do jogo
 def main():
+    rodada = 0
     while continuar:
-        etapaInicial()
+        rodada+=1
+        etapaInicial(rodada)
         etapa()
         etapaFinal()
 
