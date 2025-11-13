@@ -51,15 +51,12 @@ MAPA = [
 
 # Dados da corrida
 CHEGADA_X = MAPA[0][-2]
-PERGUNTAS = [["Pergunta","errado","errado","errado","certo "]]
-RESPOSTAS_SIMS = []
-RESPOSTAS_NAOS = [
-    "NÃO", "não", "nao", "NAO", "Nao", "Não",
-    "ñ", "Ñ", "n", "N", "no", "No", "nO",
-    "NaO", "NãO", "NÃo", "nÃO", "nAO", "NAo"
-]
-continuar = True
-resposta = ""
+PERGUNTAS = [
+    ["Pergunta","errado","errado","errado","certo "],
+    ["Pergunta","errado","errado","errado","certo "],
+    ["Pergunta","errado","certo ","errado","errado"],
+    ["Pergunta","errado","errado","certo ","errado"],
+    ]
 infos = [
     True, # continuar
     "", # resposta
@@ -184,7 +181,7 @@ _continuar()
 
 # Loop principal do jogo
 def main():
-    while continuar:
+    while infos[0]:
         infos[2]+=1
         etapaInicial()
         etapa()
