@@ -7,13 +7,17 @@ import curses
 # =============== VARIÁVEIS E CONFIGURAÇÕES GERAIS =============
 # ==============================================================
 
-TEXTO_INTRODUCAO = """''Aqueles que vivem as margens do Rio Negro acreditam na existência de uma criatura mística sob suas águas, um boto-cor-de-rosa, nomeado como “Amazonino”, que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
+TEXTO_INTRODUCAO = """''Aqueles que vivem as margens do Rio Negro acreditam na existência de uma criatura mística sob suas águas,
+um boto-cor-de-rosa, nomeado como “Amazonino”, que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
 
-Nas celebrações, o boto-cor-de-rosa encatava com facilidade as mulheres com seu dançar e seu olhar sedutor, e as levava para perto do rio, depois desaparecia e as abandonava ao amanhecer.
+Nas celebrações, o boto-cor-de-rosa encatava com facilidade as mulheres com seu dançar e seu olhar sedutor,
+e as levava para perto do rio, depois desaparecia e as abandonava ao amanhecer.
 
-Até então nenhum outro boto ousou desafia-lo pelo seu lugar, porém, surge o boto Vaquita nomeado “Chiquito” de origem mexicana muito atrevido e tão carismático quanto Amazonino, mas com ousadia o suficiente para disputar território e as belas moças que nele habitavam.
+Até então nenhum outro boto ousou desafia-lo pelo seu lugar, porém, surge o boto Vaquita nomeado “Chiquito” de origem mexicana muito
+atrevido e tão carismático quanto Amazonino, mas com ousadia o suficiente para disputar território e as belas moças que nele habitavam.
 
-Certa noite, Chiquito com muita determinação, desafia Amazonino para uma corrida, para resolver os conflitos entre eles. Quem obtiver o maior número de acertos nas perguntas alcançará primeiro o local onde as águas negras se encontram com as barrentas e vencerá a disputa.''
+Certa noite, Chiquito com muita determinação, desafia Amazonino para uma corrida, para resolver os conflitos entre eles. Quem obtiver
+o maior número de acertos nas perguntas alcançará primeiro o local onde as águas negras se encontram com as barrentas e vencerá a disputa.''
 
 """
 
@@ -55,11 +59,15 @@ RESPOSTAS_NAOS = [
     "NaO", "NãO", "NÃo", "nÃO", "nAO", "NAo"
 ]
 continuar = True
-pergunta = ""
-
+resposta = ""
+infos = [
+    True, # continuar
+    "", # resposta
+    0, # rodada
+]
 # Estado inicial do jogo
 frame_atual = [linha.copy() for linha in MAPA]
-amazonino_coords = [4, 1]  # (y, x)
+amazonino_pos = [4, 1]  # (y, x)
 tucuxi_coords = [6, 1]     # (y, x)
 amazonino_cor = ROSA
 tucuxi_cor = CINZ
@@ -90,32 +98,40 @@ def _resetarFrame():
 def _desenharBotos(frame):
     """Atualiza o frame com a posição atual dos botos."""
     frame[tucuxi_coords[0]][tucuxi_coords[1]] = tucuxi_cor
-    frame[amazonino_coords[0]][amazonino_coords[1]] = amazonino_cor
+    frame[amazonino_pos[0]][amazonino_pos[1]] = amazonino_cor
     return frame
 
 
 def _nadoTucuxi():
     """Rola os dados e move o boto vencedor."""
-    tucuxi_coords[1] += rd.choice([0,1,1])
+    tucuxi_coords[1] += rd.choice([0,1,2])
 
-def _fazerPergunta(perguntas):
+def _escreverPergunta(perguntas):
     pergunta_escolhida = rd.choice(perguntas)
+    resposta = ""
+    
     print()
     print(pergunta_escolhida[0])
+    
     for i in range(len(pergunta_escolhida)):
         if i == 0: continue
-        print(f"{i}{pergunta_escolhida[i]}")
+        if pergunta_escolhida[i][-1] == " ":
+            resposta = str(i)
+        print(f"{i}. {pergunta_escolhida[i]}")
+    
+    _analisarResposta(input(),resposta)
 
 
 def _analisarResposta(resposta, resposta_certa = ""):
     """Analisa a resposta e executa funções de acordo com ela"""
+
     if resposta == resposta_certa:
-        amazonino_coords[1] += 1
+        amazonino_pos[1] += rd.choice([1,2])
         print(f"Resposta Correta!")
     elif resposta == "sair":
-        pass # continuar = False
-    else:
-        pass
+        infos[0] = False
+    elif resposta in str([1,2,3,4]) and amazonino_pos[1] != 1:
+        amazonino_pos[1] -= rd.choice([1,2])
 
 
 def _lerInput(stdscr):
@@ -138,24 +154,23 @@ def _limparTela():
 # ===================== ETAPAS DO JOGO =========================
 # ==============================================================
 
-def etapaInicial(rodada):
+def etapaInicial():
     """Prepara o início de uma rodada."""
-    if rodada != 1:
-        _continuar()
     _limparTela()
 
 
 def etapa():
     """Executa a lógica principal e movimentação."""
-    _fazerPergunta(PERGUNTAS)
     _nadoTucuxi()
 
 
 def etapaFinal():
     """Atualiza e desenha o estado final da rodada."""
+    print(f"Rodada: {infos[2]}")
     frame_atual = _resetarFrame()
     frame_atual = _desenharBotos(frame_atual)
     _desenharFrame(frame_atual)
+    _escreverPergunta(PERGUNTAS)
 
 
 # ==============================================================
@@ -169,10 +184,9 @@ _continuar()
 
 # Loop principal do jogo
 def main():
-    rodada = 0
     while continuar:
-        rodada+=1
-        etapaInicial(rodada)
+        infos[2]+=1
+        etapaInicial()
         etapa()
         etapaFinal()
 
