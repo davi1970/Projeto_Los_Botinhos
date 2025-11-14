@@ -8,12 +8,12 @@ import curses
 # ==============================================================
 
 TEXTO_INTRODUCAO = """''Aqueles que vivem as margens do Rio Negro acreditam na existência de uma criatura mística sob suas águas,
-um boto-cor-de-rosa, nomeado como “Amazonino”, que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
+um boto-cor-de-rosa, nomeado como "Amazonino", que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
 
 Nas celebrações, o boto-cor-de-rosa encatava com facilidade as mulheres com seu dançar e seu olhar sedutor,
 e as levava para perto do rio, depois desaparecia e as abandonava ao amanhecer.
 
-Até então nenhum outro boto ousou desafia-lo pelo seu lugar, porém, surge o boto Vaquita nomeado “Chiquito” de origem mexicana muito
+Até então nenhum outro boto ousou desafia-lo pelo seu lugar, porém, surge o boto Vaquita nomeado "Chiquito" de origem mexicana muito
 atrevido e tão carismático quanto Amazonino, mas com ousadia o suficiente para disputar território e as belas moças que nele habitavam.
 
 Certa noite, Chiquito com muita determinação, desafia Amazonino para uma corrida, para resolver os conflitos entre eles. Quem obtiver
@@ -52,10 +52,28 @@ MAPA = [
 # Dados da corrida
 CHEGADA_X = MAPA[0][-2]
 PERGUNTAS = [
-    ["Pergunta","errado","errado","errado","certo "],
-    ["Pergunta","errado","errado","errado","certo "],
-    ["Pergunta","errado","certo ","errado","errado"],
-    ["Pergunta","errado","errado","certo ","errado"],
+    ["Qual o nome da fruta que contém as seguintes características: cor roxa, fruto da palmeira e predominante na região amazônica?","Acerola","Buriti","Tucumã","Açaí "],
+    ["Qual dos peixes abaixo NÃO faz parte dos peixes da fauna amazônica?","Pirarara","Tambaqui","Jaraqui","Peixe-Palhaço "],
+    ["Em quê tucumã é muito consumido na Amazônia principalmente?","Sucos","Sanduíches e Tapiocas ","Bolos","Sorvete"],
+    ["Qual é a lenda do folclore que descreve uma bela sereia que seduz os homens com seu canto?","Lenda da Vitória-régia","Lenda do Curupira","Lenda da Iara ","Lenda do Boto-cor-de-rosa"],
+    ["O Rio Madeira possui diversas corredeiras e cachoeiras. Em qual país ele nasce antes de entrar no Brasil?", "Colômbia", "Peru", "Bolívia ", "Venezuela"],
+    ["Qual personagem da mitologia amazônica é conhecido como um gigante peludo, com um olho no centro da testa e mau hálito, que assusta caçadores?", "Mapinguari ", "Curupira", "Boitatá", "Jurupari"],
+    ["Qual lenda amazônica fala de um boto que se transforma em homem durante as festas e seduz as moças da região?", "Iara", "Curupira", "Boto-cor-de-rosa ", "Mapinguari"],
+    ["Complete o ditado: Quem come Jaraqui,…", "Não sai mais daqui ", "Não pisa mais aqui", "Não vem mais aqui", "Não fica mais aqui"],
+    ["Qual é o maior felino da Amazônia?", "Jaguatirica", "Onça-pintada ", "Gato-do-mato", "Puma"],
+    ["Em quê o buriti é rico?", "Vitamina C", "Vitamina A ", "Ferro", "Cálcio"],
+    ["Qual desses peixes possui placas ósseas no corpo e é conhecido por fazer roncos para se comunicar?", "Pacu", "Arraia-d’água-doce", "Bodó ", "Jatuarana"],
+    ["A pirarara é um peixe facilmente reconhecido pela:", "Cauda Vermelha intensa ", "Nadadeira dorsal azulada", "Boca em formato de bico", "Escamas brilhantes prateadas"], #12
+    ["Qual peixe amazônico é considerado um dos maiores de água doce do mundo, podendo ultrapassar 3 metros?", "Pirarucu ", "Piranha-preta", "Tambaqui", "Jaraqui"],
+    ["O Rio Tapajós é conhecido pela cor de suas águas. De que tipo ele é classificado?", "Água branca", "Água barrenta", "Água preta", "Água clara(verde-azulada) "],
+    ["A pupunha deve ser consumida normalmente após:", "Ser frita", "Ser assada", "Ser cozida ", "ser deixada de molho"],
+    ["Qual destas frutas possui casca grossa e polpa amarela muito aromática?", "Bacuri", "Pitanga", "Acerola", "Taperebá "],
+    ["Qual destes animais é conhecido por mudar de cor?", "Onça-pintada", "Boto-cor-de-rosa", "Camaleão ", "Tartaruga-da-amazônia"],
+    ["Qual fruta amazônica é conhecida por seu sabor ácido e forte aroma, usada em sorvetes?", "Castanha-do-pará", "Cupuaçu ", "Açaí", "Murici"],
+    ["Qual rio amazônico é famoso por abrigar o maior arquipélago fluvial do mundo, o Arquipélago de Mariuá?", "Rio Tapajós", "Rio Negro ", "Rio Purus", "Rio Madeira"],
+    ["O tambaqui é muito apreciado na culinária amazônica. Ele se alimenta principalmente de:", "Outros peixes", "Frutos e sementes caídos de árvores ", "Insetos aquáticos", "Plâncton"],
+    ["Qual peixe amazônico consegue emitir descargas elétricas de alta voltagem para caça e defesa?", "Poraquê ", "Matrinxã", "Traíra", "Aruanã"],
+    ["Qual desses répteis amazônicos pode medir mais de 5 metros de comprimento?", "Iguana-verde", "Jacaré-açu#", "Jabuti", "Lagarto-teiú"],
     ]
 infos = [
     True, # continuar
