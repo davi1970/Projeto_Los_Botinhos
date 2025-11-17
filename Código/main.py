@@ -7,16 +7,13 @@ import random as rd
 # ============================================================== #
 
 # Texto de introdução do jogo
-HISTORIA = """Aqueles que vivem as margens do Rio Negro acreditam na existência de uma criatura mística sob suas águas,
-um boto-cor-de-rosa, nomeado “Amazonino”, que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
+HISTORIA = """Aqueles que vivem as margens do Rio Negro acreditam na existência de uma criatura mística sob suas águas, um boto-cor-de-rosa, nomeado “Amazonino”, que se transforma ao cair da noite num belo rapaz perfumado e sedutor com vestes brancas.
 
-Nas celebrações, o boto-cor-de-rosa encantava as mulheres com seu dançar e olhar sedutor,
-levando-as para perto do rio, desaparecendo ao amanhecer.
+Nas celebrações, o boto-cor-de-rosa encantava as mulheres com seu dançar e olhar sedutor, levando-as para perto do rio, desaparecendo ao amanhecer.
 
-Até então, nenhum outro boto ousou desafiar seu território, porém surge o boto Vaquita nomeado “Chiquito”, 
-de origem mexicana, carismático e atrevido, disposto a disputar território e as moças do lugar.
+Até então, nenhum outro boto ousou desafiar seu território, porém surge o boto Vaquita nomeado “Chiquito”, de origem mexicana, carismático e atrevido, disposto a disputar território e as moças do lugar.
 
-Certa noite, Chiquito desafia Amazonino para uma corrida. Quem acertar mais perguntas chegará primeiro ao encontro das águas negras com as barrentas, vencendo a disputa.
+Certa noite, Chiquito desafia Amazonino para uma corrida. Apenas aquele que entender mais sobre a floresta em que estão chegará primeiro ao encontro das águas negras com as barrentas, vencendo a disputa.
 """
 
 # Paleta de cores ANSI 256
@@ -134,7 +131,7 @@ def _escreverPergunta(perguntas):
     alternativas = rd.sample(pergunta_escolhida[1:],4)    
     
     print()
-    print(pergunta_escolhida[0]+"?\n")
+    print(pergunta_escolhida[0]+"\n")
     for i in range(len(alternativas)):
         if alternativas[i][-1] == "#":
             resposta = str(i+1)
