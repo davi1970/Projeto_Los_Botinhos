@@ -123,6 +123,7 @@ infos = [True, "", 0, 0, ["","",""],[linha.copy() for linha in MAPA]]
 # 4. dados da pergunta escolhida no momento  [pergunta, alternativas, reposta]
 # 5. frame atual
 
+
 CHEGADA_X = len(MAPA[0]) - 2  # Posição X da linha de chegada
 amazon_coords = [4, 1]  # (y (linha), x (coluna))
 tucuxi_coords = [6, 1]  # (y (linha), x (coluna))
@@ -193,15 +194,21 @@ def _analisarResposta():
     if infos[4] and infos[4][0]:  # Verifica se há pergunta
         if resposta == "sair":
             _finalizarJogo()
-            return "Encerrando programa."
+            infos[1] = "Encerrando programa."
         elif resposta == infos[4][2]:
             desloc = rd.choice([1,2])
             amazon_coords[1] = min(amazon_coords[1] + desloc, len(MAPA[0])-1) # "len(MAPA[0])-1" dá a coord x máxima da tela 
-            return f"Resposta correta! Amazonino avança {desloc} casas."
+            infos[1] = f"Resposta correta! Amazonino avança {desloc} casas."
         else:
             desloc = rd.choice([1,2])
             amazon_coords[1] = max(0, amazon_coords[1] - desloc) # impede que o boto se mova para "fora"
-            return f"Resposta errada. Amazonino recua {desloc} casas."
+            infos[1] = f"Resposta errada. Amazonino recua {desloc} casas."
+    
+def _mensagem():
+    if infos[1] not in ["1", "2", "3", "4", "5", "sair"]:
+        print(f"\n{infos[1]}")
+        _continuar()
+
 
 def _finalizarJogo():
     """Finaliza o jogo alterando o estado de continuidade para False."""
@@ -323,6 +330,7 @@ def etapaProcessamento():
     
     Executa em sequência:
     - Análise da resposta do jogador
+        . 
     - Movimento do adversário (Tucuxi)
     - Verificação de condições de vitória
     """
@@ -389,6 +397,7 @@ def main():
 
             # PROCESSA a resposta
             etapaProcessamento()
+            _mensagem()
         etapaNovaRodada()
         renderizacao()
 
