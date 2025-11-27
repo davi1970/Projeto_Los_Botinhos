@@ -43,9 +43,11 @@ MAPA = [
     [VD_E, VD_E, VD_E, VD_E, VD_E, VD_E, VERD, VERD, VERD, VERD, VERD, VD_E, VD_E, VD_E, VD_E, VD_E, PRET, VD_E]
 ]
 
-    # Perguntas (1º dado é a pergunta e o último é a resposta)
+
+
 
 # Perguntas, alternativas e respostas corretas
+# Perguntas (1º informação é a pergunta e o último é a resposta)
 perguntas = [
     ["Qual o nome da fruta que contém as seguintes características: cor roxa, fruto da palmeira e predominante na região amazônica?",
      "Acerola", "Buriti", "Tucumã", "Açaí"],
@@ -116,12 +118,12 @@ perguntas = [
 
 
 infos = [True, "", 0, 0, ["","",""],[linha.copy() for linha in MAPA]]  
-# 0. continuar
-# 1. resposta_atual
-# 2. rodada
-# 3. estado final do jogo (se e quem ganhou)
-# 4. dados da pergunta escolhida no momento  [pergunta, alternativas, reposta]
-# 5. frame atual
+# 1º. continuar
+# 2º. resposta_atual
+# 3º. rodada
+# 4º. estado final do jogo (se e quem ganhou)
+# 5º. dados da pergunta escolhida no momento  [pergunta, alternativas, reposta]
+# 6º. frame atual
 
 
 CHEGADA_X = len(MAPA[0]) - 2  # Posição X da linha de chegada
@@ -156,6 +158,7 @@ def _perguntar():
 # -------------------- FUNÇÕES DE LÓGICA -------------------- #
 def _tucuxiNado():
     """Move o Tucuxi de forma aleatória (0 a 2 casas)."""
+
     tucuxi_coords[1] = min(tucuxi_coords[1] + rd.choice([0,1,2]), len(MAPA[0])-1)
 
 def _escolherNovaPergunta():
@@ -169,6 +172,7 @@ def _escolherNovaPergunta():
     4. Embaralha as alternativas
     5. Armazena pergunta, alternativas e índice da resposta correta
     """
+
     opcoes = rd.choice(perguntas).copy()
 
     pergunta = opcoes[0]
@@ -238,7 +242,7 @@ def _resultadoCorrida():
 
 # -------------------- FUNÇÕES DE RENDER -------------------- #
 def _desenharPixel(cor_texto, cor_fundo=0, caractere=PIXEL):
-    """Imprime um pixel colorido no terminal usando ANSI."""
+    """Imprime um pixel colorido no terminal usando ANSCII."""
     print(f"\033[38;5;{cor_texto};48;5;{cor_fundo}m{caractere}\033[0m", end="")
 
 def _desenharMapa():
@@ -248,10 +252,11 @@ def _desenharMapa():
     print(f"Rodada: {infos[2]}\n")
     _desenharBotos()
 
-    for linha in infos[5]:
-        for cor_pixel in linha:
-            _desenharPixel(cor_pixel, cor_pixel)
+    for y in infos[5]:
+        for x in y:
+            _desenharPixel(x, x)
         print()
+        
 
 def _escreverPergunta():
     """
@@ -299,7 +304,7 @@ def _printColorido(texto, cor=0):
     """
     Imprime texto colorido no terminal usando códigos ANSI.
     
-    Args:
+    Argumentoss:
         texto (str): Texto a ser impresso
         cor (int): Código da cor (0-255) da paleta ANSI 256 cores
     """
