@@ -47,7 +47,7 @@ MAPA = [
 
 
 # Perguntas, alternativas e respostas corretas
-# Perguntas (1º informação é a pergunta e o último é a resposta)
+# Perguntas (1º informação é a pergunta e a última é a resposta)
 perguntas = [
     ["Qual o nome da fruta que contém as seguintes características: cor roxa, fruto da palmeira e predominante na região amazônica?",
      "Acerola", "Buriti", "Tucumã", "Açaí"],
@@ -117,7 +117,14 @@ perguntas = [
 ]
 
 
-infos = [True, "", 0, 0, ["","",""],[linha.copy() for linha in MAPA]]  
+infos = [
+    True,
+    "",
+    0,
+    0,
+    ["","",""],
+    [linha.copy() for linha in MAPA]
+]  
 # 1º. continuar
 # 2º. resposta_atual
 # 3º. rodada
@@ -126,19 +133,21 @@ infos = [True, "", 0, 0, ["","",""],[linha.copy() for linha in MAPA]]
 # 6º. frame atual
 
 
-CHEGADA_X = len(MAPA[0]) - 2  # Posição X da linha de chegada
+CHEGADA_X = len(MAPA[0]) - 2  # Coordenada X da linha de chegada
 amazon_coords = [4, 1]  # (y (linha), x (coluna))
 tucuxi_coords = [6, 1]  # (y (linha), x (coluna))
 
 amazonino_cor = ROSA
 tucuxi_cor = CINZ
  
+
 # ============================================================== #
 # --------------------- FUNÇÕES AUXILIARES --------------------- #
 # ============================================================== #
 
 
-# --------------------FUNÇÕES DE ENTRADA -------------------- #
+# --------------------- FUNÇÕES DE INPUTS ---------------------- #
+
 def _continuar():
     """Pausa até o jogador pressionar Enter."""
     input('\nPressione "Enter" para continuar.\n')
@@ -156,6 +165,7 @@ def _perguntar():
         _perguntar()
 
 # -------------------- FUNÇÕES DE LÓGICA -------------------- #
+
 def _tucuxiNado():
     """Move o Tucuxi de forma aleatória (0 a 2 casas)."""
 
@@ -199,14 +209,16 @@ def _analisarResposta():
         if resposta == "sair":
             _finalizarJogo()
             infos[1] = "Encerrando programa."
+
         elif resposta == infos[4][2]:
             desloc = rd.choice([1,2])
             amazon_coords[1] = min(amazon_coords[1] + desloc, len(MAPA[0])-1) # "len(MAPA[0])-1" dá a coord x máxima da tela 
             infos[1] = f"Resposta correta! Amazonino avança {desloc} casas."
+
         else:
             desloc = rd.choice([1,2])
             amazon_coords[1] = max(0, amazon_coords[1] - desloc) # impede que o boto se mova para "fora"
-            infos[1] = f"Resposta errada. Amazonino recua {desloc} casas."
+            infos[1] = f"Resposta errada. Amazonino retrocede {desloc} casas."
     
 def _mensagem():
     if infos[1] not in ["1", "2", "3", "4", "5", "sair"]:
@@ -241,6 +253,7 @@ def _resultadoCorrida():
         _finalizarJogo()
 
 # -------------------- FUNÇÕES DE RENDER -------------------- #
+
 def _desenharPixel(cor_texto, cor_fundo=0, caractere=PIXEL):
     """Imprime um pixel colorido no terminal usando ANSCII."""
     print(f"\033[38;5;{cor_texto};48;5;{cor_fundo}m{caractere}\033[0m", end="")
